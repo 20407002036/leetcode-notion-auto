@@ -3,6 +3,8 @@ import datetime
 from notion_client import Client
 from dotenv import load_dotenv
 import json
+from utils.fileUtils import extract_file_text
+from pathlib import Path
 
 # Load environment variables from .env file
 load_dotenv()
@@ -10,6 +12,7 @@ load_dotenv()
 # --- Configuration ---
 # Get Notion token from environment variable
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+PATH_TO_LEETCODE_FOLDER = os.getenv("PATH_TO_LEETCODE_FOLDER")
 
 if not NOTION_TOKEN:
     raise ValueError("NOTION_TOKEN environment variable not set. Please create a .env file.")
@@ -19,8 +22,25 @@ NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 if not NOTION_DATABASE_ID:
     raise ValueError("NOTION_DATABASE_ID environment variable not set. Please create a .env file.")
 
+
+from Leet.main import Leet
+leet = Leet(NOTION_TOKEN)
+
+def newImp(problem_name, leetNumber, difficulty, solution_link):
+    leet.add_leetcode_entry(NOTION_DATABASE_ID, problem_name, leetNumber, difficulty, datetime.date.today().isoformat(), status="Not Yet")
+
 # Initialize Notion client
 notion = Client(auth=NOTION_TOKEN)
+
+
+def get_files_under_leet_folder(LeetCodeFolder):
+    path = Path(LeetCodeFolder)
+    file_names = []
+    for x, y, z in path.walk():
+        for file_name in z:
+            file_names.append(file_name)
+    # print(file_names)
+    return file_names
 
 
 def get_existing_leets():
@@ -39,7 +59,7 @@ def get_existing_leets():
         print(f" {obj["properties"]["Difficulty Level"]["select"]["name"]}")
         print(f" {obj["properties"]["Reviewed"]["status"]}")
 
-    # print(json.dumps(res["results"], indent=2))
+    print(json.dumps(res["results"], indent=2))
     return res
 def add_leetcode_entry(problem_name, leetNumber, difficulty, solution_link, date_solved=None, status="Not Yet"):
     """
@@ -112,8 +132,8 @@ if __name__ == "__main__":
     # problem_name = input("Enter LeetCode Problem Name: ")
     # leetNumber = input("Enter LeetCode Problem Number: ")
 
-    problem_name = "Name"
-    leetNumber= 6481
+    problem_name = "Your Highness"
+    leetNumber= 6452
 
     difficulty = "Easy"
     solution_link = "GitHub Gist"
@@ -131,5 +151,14 @@ if __name__ == "__main__":
     # You can extend this to ask for other properties if you add them
     # For now, Date Solved defaults to today and Status to "Solved"
 
-    get_existing_leets()
+    # get_existing_leets()
     # add_leetcode_entry(problem_name, leetNumber, difficulty, solution_link)
+    # newImp(problem_name, leetNumber, difficulty, solution_link)
+
+    file_Names = get_files_under_leet_folder(PATH_TO_LEETCODE_FOLDER)
+    for file_Name in file_Names:
+        has = False
+        if "~" in file_Name: # Eliminated Emacs auto saved buffers
+            has = True
+        if not has:
+            extract_file_text(f"{PATH_TO_LEETCODE_FOLDER}/{file_Name}")
