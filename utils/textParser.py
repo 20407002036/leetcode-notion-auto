@@ -11,8 +11,9 @@ def parse_leet_data_from_extracted_text(file_text):
         if type(leetNo) == str and type(leetFuncName) == str:
             int_leetNo = leetNo.split(".")[-1]
             leetFuncName = leetFuncName.split(" ")[-1]
-            print(int(int_leetNo), leetFuncName)
+            # print(int(int_leetNo), leetFuncName)
             leet_mdl = LeetMdl(int_leetNo, leetFuncName)
             leet_mdl.save_leet()
+        return int(leetNo)
     except Exception as e:
         print(f"Exception: {e}")

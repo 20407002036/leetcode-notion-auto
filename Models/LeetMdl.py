@@ -19,7 +19,6 @@ class LeetMdl:
         cursor.execute('''
         INSERT INTO Leet(leet_func_name, leet_no)
         VALUES (?, ?)''', (self.leet_func_name, self.leet_no))
-
         print("Saved")
         conn.commit()
         conn.close()

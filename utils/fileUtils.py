@@ -9,7 +9,8 @@ def extract_file_text(file_path):
     try:
         with open(file_path, 'r') as file:
             content = file.read()
-        parse_leet_data_from_extracted_text(content)
+        leetId = parse_leet_data_from_extracted_text(content)
+        return leetId
     except FileNotFoundError:
         print(f"Error: The file '{file_path}' was not found.")
     except Exception as e:
