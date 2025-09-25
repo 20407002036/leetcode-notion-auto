@@ -1,6 +1,6 @@
 from typing import Any
 from notion_client import Client
-from Models.SavedLeetMdl import SavedLeetMdl
+from Models.NotionLeetMdl import NotionLeetMdl
 
 class Leet:
     def __init__(self, notion_token):
@@ -62,6 +62,7 @@ class Leet:
                 leet_title = obj["properties"]["Name"]["title"][0]["text"]["content"]
                 leet_no = obj["properties"]["Number"]["number"]
                 leet_difficulty = obj["properties"]["Difficulty Level"]["select"]["name"]
+                difficulty_info = obj["properties"]["Difficulty Level"]
                 leet_status = obj["properties"]["Reviewed"]["status"]
 
                 print(leet_notion_id)
@@ -69,7 +70,8 @@ class Leet:
                 print(f"  {leet_difficulty}")
                 print(f"  {leet_status}")
                 print(f"  {leet_no}")
-                notionLeet = SavedLeetMdl(leet_no, leet_title, leet_notion_id, leet_difficulty, leet_status)
+                print(f"         {difficulty_info}")
+                notionLeet = NotionLeetMdl(leet_no, leet_title, leet_notion_id, leet_difficulty, leet_status)
                 leetLst.append(notionLeet)
             # print(type(leetLst))
             return leetLst
