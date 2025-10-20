@@ -1,6 +1,6 @@
 from typing import Any
 from notion_client import Client
-from Models.NotionLeetMdl import NotionLeetMdl
+from models.NotionLeetMdl import SavedLeetMdl
 
 class Leet:
     def __init__(self, notion_token):
@@ -71,7 +71,7 @@ class Leet:
                 print(f"  {leet_status}")
                 print(f"  {leet_no}")
                 print(f"         {difficulty_info}")
-                notionLeet = NotionLeetMdl(leet_no, leet_title, leet_notion_id, leet_difficulty, leet_status)
+                notionLeet = SavedLeetMdl(leet_no, leet_title, leet_notion_id, leet_difficulty, leet_status)
                 leetLst.append(notionLeet)
             # print(type(leetLst))
             return leetLst

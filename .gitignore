@@ -1,5 +1,6 @@
 .env
 notion/
 Leet/__pycache__/
-Models/__pycache/
+models/__pycache/
 utils/__pycache/
+venv/

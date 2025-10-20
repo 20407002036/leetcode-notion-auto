@@ -1,5 +1,5 @@
 import re
-from Models.LeetMdl import LeetMdl
+from models.LeetMdl import LeetMdl
 
 def parse_leet_data_from_extracted_text(file_text):
     leet_no_re = re.compile(r'no. ?\d{4}', flags=re.IGNORECASE)

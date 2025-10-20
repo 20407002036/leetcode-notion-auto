@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import json
 from utils.fileUtils import extract_file_text
 from pathlib import Path
-from Models.SavedLeetMdl import getNotionLeetsFromdb
+from models.NotionLeetMdl import getNotionLeetsFromdb
 
 # Load environment variables from .env file
 load_dotenv()
