@@ -7,7 +7,6 @@ import json
 from utils.fileUtils import extract_file_text
 from utils.textParser import parse_leet_data_from_extracted_text
 from pathlib import Path
-
 # from Models.SavedLeetMdl import getNotionLeetsFromdb  # TODO: Fix import path
 
 # Setup logging
